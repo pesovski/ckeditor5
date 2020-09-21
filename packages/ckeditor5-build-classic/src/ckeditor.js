@@ -23,6 +23,7 @@ import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import Image from '@ckeditor/ckeditor5-image/src/image';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
 // import Indent from '@ckeditor/ckeditor5-indent/src/indent';
@@ -61,6 +62,7 @@ ClassicEditor.builtinPlugins = [
 	Image,
 	ImageCaption,
 	ImageStyle,
+	ImageResize,
 	ImageToolbar,
 	ImageUpload,
 	Link,
@@ -117,7 +119,6 @@ ClassicEditor.defaultConfig = {
 			'underline',
 			'|',
 			'ckfinder',
-			'imageUpload',
 			'link',
 			'mediaEmbed',
 			'insertTable',
@@ -141,6 +142,8 @@ ClassicEditor.defaultConfig = {
 		toolbar: [
 			'imageStyle:full',
 			'imageStyle:side',
+			'|',
+			'imageResize',
 			'|',
 			'imageTextAlternative'
 		]
