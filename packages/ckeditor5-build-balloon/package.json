@@ -70,5 +70,9 @@
   "scripts": {
     "build": "webpack --mode production",
     "preversion": "npm run build"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-font": "^21.0.0",
+    "@ckeditor/ckeditor5-horizontal-line": "^21.0.0"
   }
 }

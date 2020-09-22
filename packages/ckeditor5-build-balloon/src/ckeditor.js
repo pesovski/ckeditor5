@@ -10,25 +10,37 @@ import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
+import Code from '@ckeditor/ckeditor5-basic-styles/src/code';
+import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript';
+import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
-import Heading from '@ckeditor/ckeditor5-heading/src/heading';
+// import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Image from '@ckeditor/ckeditor5-image/src/image';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
-import Indent from '@ckeditor/ckeditor5-indent/src/indent';
+// import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
-import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
-import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
+// import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+// import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
-import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
+// import TableEditing from '@ckeditor/ckeditor5-table/src/tableediting';
+// import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
+import FontSize from '@ckeditor/ckeditor5-font/src/fontsize';
+import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor';
+import FontBackgroundColor from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor';
+import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
 
 export default class BalloonEditor extends BalloonEditorBase {}
 
@@ -38,46 +50,88 @@ BalloonEditor.builtinPlugins = [
 	UploadAdapter,
 	Autoformat,
 	Bold,
+	Code,
+	Strikethrough,
+	Subscript,
+	Superscript,
 	Italic,
+	Underline,
 	BlockQuote,
 	CKFinder,
 	EasyImage,
-	Heading,
 	Image,
 	ImageCaption,
 	ImageStyle,
+	ImageResize,
 	ImageToolbar,
 	ImageUpload,
-	Indent,
 	Link,
 	List,
 	MediaEmbed,
-	Paragraph,
-	PasteFromOffice,
 	Table,
 	TableToolbar,
-	TextTransformation
+	FontSize,
+	FontColor,
+	FontBackgroundColor,
+	HorizontalLine,
+	TableCellProperties
 ];
+const customColorPalette = [
+    {
+        color: 'hsl(4, 90%, 58%)',
+        label: 'Red'
+    },
+    {
+        color: 'hsl(340, 82%, 52%)',
+        label: 'Pink'
+    },
+    {
+        color: 'hsl(291, 64%, 42%)',
+        label: 'Purple'
+    },
+    {
+        color: 'hsl(262, 52%, 47%)',
+        label: 'Deep Purple'
+    },
+    {
+        color: 'hsl(231, 48%, 48%)',
+        label: 'Indigo'
+    },
+    {
+        color: 'hsl(207, 90%, 54%)',
+        label: 'Blue'
+    },
 
+    // ...
+];
 // Editor configuration.
 BalloonEditor.defaultConfig = {
 	toolbar: {
 		items: [
-			'heading',
+			'fontsize',
+			'fontcolor',
+			'fontbackgroundcolor',
 			'|',
 			'bold',
 			'italic',
+			'underline',
+			'|',
+			'ckfinder',
 			'link',
+			'mediaEmbed',
+			'insertTable',
+			'|',
 			'bulletedList',
 			'numberedList',
 			'|',
-			'indent',
-			'outdent',
+			'strikethrough',
+			'subscript',
+			'superscript',
 			'|',
-			'imageUpload',
+			'horizontalline',
 			'blockQuote',
-			'insertTable',
-			'mediaEmbed',
+			'code',
+			'|',
 			'undo',
 			'redo'
 		]
@@ -87,6 +141,8 @@ BalloonEditor.defaultConfig = {
 			'imageStyle:full',
 			'imageStyle:side',
 			'|',
+			'imageResize',
+			'|',
 			'imageTextAlternative'
 		]
 	},
@@ -94,8 +150,33 @@ BalloonEditor.defaultConfig = {
 		contentToolbar: [
 			'tableColumn',
 			'tableRow',
-			'mergeTableCells'
-		]
+			'mergeTableCells',
+			'tableCellProperties',
+		],
+		
+		// Set the palettes for tables.
+		tableProperties: {
+			borderColors: customColorPalette,
+			backgroundColors: customColorPalette
+		},
+
+		// Set the palettes for table cells.
+		tableCellProperties: {
+			borderColors: customColorPalette,
+			backgroundColors: customColorPalette
+		}
+	},
+	fontSize: {
+		options: [
+			9,
+			11,
+			13,
+			'default',
+			17,
+			19,
+			21
+		],
+		supportAllValues: true
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
